@@ -1,12 +1,15 @@
 "use client";
 
+import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
   Camera,
   CarFront,
   CheckCircle2,
+  Clock3,
   CircleDashed,
+  Droplets,
   Gem,
   Mail,
   MapPin,
@@ -39,6 +42,37 @@ type Service = {
   icon: LucideIcon;
 };
 
+type PackageTier = {
+  name: string;
+  price: string;
+  summary: string;
+  featured?: boolean;
+};
+
+const packageTiers: PackageTier[] = [
+  {
+    name: "Basic Service",
+    price: "$75",
+    summary: "A straightforward refresh covering essential exterior and interior touch points.",
+  },
+  {
+    name: "Core Service",
+    price: "$125",
+    summary: "Our most popular package for balanced shine, interior reset, and lasting finish.",
+    featured: true,
+  },
+  {
+    name: "Premium Service",
+    price: "$250",
+    summary: "Deep restoration with paint enhancement and advanced interior detailing care.",
+  },
+  {
+    name: "Complete Service Package",
+    price: "$500",
+    summary: "Our full signature treatment including correction-level polish and premium protection.",
+  },
+];
+
 const services: Service[] = [
   {
     title: "Exterior Detail",
@@ -69,6 +103,24 @@ const services: Service[] = [
     description:
       "We bring premium equipment and professional products straight to your driveway in the Detroit Metro area.",
     icon: CarFront,
+  },
+];
+
+const processSteps = [
+  {
+    title: "Inspect & Quote",
+    detail: "We evaluate paint, trim, glass, and interior condition before service starts.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Detail & Correct",
+    detail: "Precision cleaning and correction methods restore depth, clarity, and cabin freshness.",
+    icon: WandSparkles,
+  },
+  {
+    title: "Protect & Finish",
+    detail: "Final dressings and optional coating lock in gloss and make upkeep easier.",
+    icon: Droplets,
   },
 ];
 
@@ -172,8 +224,8 @@ const instagramPreviews = [
 
 export default function Home() {
   const { scrollY } = useScroll();
-  const heroY = useTransform(scrollY, [0, 500], [0, 120]);
-  const heroScale = useTransform(scrollY, [0, 500], [1, 1.08]);
+  const heroY = useTransform(scrollY, [0, 520], [0, 140]);
+  const heroScale = useTransform(scrollY, [0, 520], [1, 1.12]);
 
   return (
     <div className="relative overflow-x-clip bg-[var(--color-bg)] pb-24 text-white md:pb-0">
@@ -187,13 +239,16 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       >
-        <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-black/35 backdrop-blur-xl">
+        <header className="fixed inset-x-0 top-0 z-40 border-b border-white/10 bg-black/45 backdrop-blur-xl">
           <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3 md:px-8">
             <a href="#top" className="font-display text-xl tracking-[0.15em] text-white">
               GLASS BOSS <span className="text-[var(--color-accent)]">DETAILING</span>
             </a>
 
             <nav className="hidden items-center gap-6 text-sm text-zinc-300 md:flex">
+              <a href="#packages" className="transition-colors hover:text-white">
+                Packages
+              </a>
               <a href="#services" className="transition-colors hover:text-white">
                 Services
               </a>
@@ -217,16 +272,24 @@ export default function Home() {
           </div>
         </header>
 
-        <section id="top" className="relative flex min-h-[100svh] items-center overflow-hidden">
+        <section id="top" className="relative flex min-h-[100svh] items-center overflow-hidden border-b border-white/10">
           <motion.div
             className="absolute inset-0 -z-10"
             style={{ y: heroY, scale: heroScale }}
             aria-hidden="true"
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(0,194,255,0.27),transparent_45%),radial-gradient(circle_at_80%_30%,rgba(108,255,189,0.16),transparent_40%),linear-gradient(160deg,#040506_0%,#0a0f14_45%,#07090b_100%)]" />
+            <Image
+              src="/showcase/after-01.webp"
+              alt="Premium mobile detailing finish"
+              fill
+              priority
+              className="object-cover"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(0,0,0,0.86)_20%,rgba(0,0,0,0.52)_65%,rgba(0,0,0,0.9)_100%)]" />
             <div className="aurora absolute -top-48 left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-cyan-300/18 blur-3xl" />
-            <div className="absolute bottom-[-120px] left-[-120px] h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
-            <div className="absolute right-[-140px] top-1/3 h-72 w-72 rounded-full bg-emerald-300/8 blur-3xl" />
+            <div className="absolute bottom-[-120px] left-[-120px] h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl" />
+            <div className="absolute right-[-140px] top-1/3 h-72 w-72 rounded-full bg-emerald-300/14 blur-3xl" />
           </motion.div>
 
           <div className="mx-auto w-full max-w-6xl px-4 pb-16 pt-28 md:px-8 md:pt-36">
@@ -236,25 +299,26 @@ export default function Home() {
               </Badge>
 
               <div className="space-y-5">
-                <h1 className="font-display text-5xl leading-[0.95] tracking-[0.03em] text-white md:text-7xl">
-                  Detroit&apos;s Premium Mobile Detailing Service
+                <p className="text-xs uppercase tracking-[0.23em] text-zinc-300">Mobile Auto Detailing</p>
+                <h1 className="font-display text-5xl leading-[0.92] tracking-[0.02em] text-white md:text-7xl">
+                  High-Gloss Detailing That Makes Your Car Look Better Than Showroom-New
                 </h1>
                 <p className="max-w-2xl text-lg text-zinc-300 md:text-xl">
-                  We bring showroom shine to your driveway with precision detailing,
-                  professional-grade products, and results that turn heads.
+                  From daily commuters to garage-kept builds, we deliver certified mobile
+                  detailing with premium products and meticulous execution at your location.
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-3">
                 <a href="#contact" className={cn(buttonVariants({ size: "lg" }), "gap-2")}>
-                  Book a Detail
+                  Book Appointment
                   <ArrowRight className="h-4 w-4" />
                 </a>
                 <a
-                  href="#contact"
+                  href="#packages"
                   className={cn(buttonVariants({ variant: "secondary", size: "lg" }), "gap-2")}
                 >
-                  Get a Quote
+                  View Packages
                 </a>
               </div>
 
@@ -264,12 +328,105 @@ export default function Home() {
                   <p className="mt-2 text-2xl font-semibold text-white">5.0 Stars</p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Mobile Visits</p>
-                  <p className="mt-2 text-2xl font-semibold text-white">Detroit Metro</p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">On-Site Service</p>
+                  <p className="mt-2 text-2xl font-semibold text-white">7 Days / Week</p>
                 </div>
                 <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Service Focus</p>
-                  <p className="mt-2 text-2xl font-semibold text-white">Luxury Finish</p>
+                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Avg Turnaround</p>
+                  <p className="mt-2 text-2xl font-semibold text-white">Same-Day Quotes</p>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
+        <section id="packages" className="section-shell border-b border-white/5 bg-white/[0.02]">
+          <div className="mx-auto w-full max-w-6xl px-4 md:px-8">
+            <Reveal className="max-w-3xl space-y-4">
+              <Badge>Packages</Badge>
+              <h2 className="font-display text-4xl tracking-[0.04em] md:text-5xl">
+                Detailing Packages Built For Every Ride And Budget
+              </h2>
+              <p className="text-zinc-300">
+                Pick the detail level you need today. We can always build a custom package
+                when your paint, interior, or protection goals require more.
+              </p>
+            </Reveal>
+
+            <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              {packageTiers.map((tier, index) => (
+                <Reveal key={tier.name} delay={index * 0.06}>
+                  <motion.div
+                    whileHover={{ y: -6, scale: 1.02 }}
+                    transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
+                    className={cn(
+                      "rounded-3xl border p-6",
+                      tier.featured
+                        ? "border-[var(--color-accent)]/35 bg-[linear-gradient(160deg,rgba(0,194,255,0.16),rgba(255,255,255,0.04))]"
+                        : "border-white/10 bg-white/[0.03]"
+                    )}
+                  >
+                    <p className="text-sm uppercase tracking-[0.18em] text-zinc-300">{tier.name}</p>
+                    <p className="mt-4 font-display text-5xl leading-none text-white">{tier.price}</p>
+                    <p className="mt-4 min-h-16 text-sm leading-relaxed text-zinc-300">{tier.summary}</p>
+                    <a
+                      href="#contact"
+                      className={cn(
+                        buttonVariants({ variant: tier.featured ? "default" : "secondary" }),
+                        "mt-5 w-full"
+                      )}
+                    >
+                      Select Package
+                    </a>
+                  </motion.div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="section-shell border-b border-white/5">
+          <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 md:px-8 lg:grid-cols-[1.1fr_0.9fr]">
+            <Reveal className="space-y-5">
+              <Badge>About Us</Badge>
+              <h2 className="font-display text-4xl tracking-[0.04em] md:text-5xl">
+                We&apos;re A Team Of Certified Detailing Specialists Obsessed With Perfection
+              </h2>
+              <p className="text-zinc-300">
+                From daily commuters to collector exotics, Glass Boss combines cutting-edge
+                products with meticulous technique to deliver finishes that turn heads and
+                preserve value.
+              </p>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Based In</p>
+                  <p className="mt-2 text-lg font-semibold text-white">Downriver, Michigan</p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Coverage</p>
+                  <p className="mt-2 text-lg font-semibold text-white">Detroit Metro Area</p>
+                </div>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/40 p-6">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(0,194,255,0.16),transparent_60%)]" />
+                <div className="relative space-y-5">
+                  <p className="text-sm uppercase tracking-[0.2em] text-zinc-300">Customer Promise</p>
+                  <p className="text-xl leading-relaxed text-white">
+                    &ldquo;No rushed handoff. No shortcuts. Every vehicle gets a final quality pass
+                    before we leave your driveway.&rdquo;
+                  </p>
+                  <div className="space-y-3">
+                    {["Insured mobile operation", "Professional-grade product systems", "Transparent quote process"].map((item) => (
+                      <div key={item} className="flex items-center gap-3">
+                        <CheckCircle2 className="h-5 w-5 text-[var(--color-accent)]" />
+                        <p className="text-zinc-200">{item}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </Reveal>
@@ -281,11 +438,10 @@ export default function Home() {
             <Reveal className="max-w-3xl space-y-4">
               <Badge>Services</Badge>
               <h2 className="font-display text-4xl tracking-[0.04em] md:text-5xl">
-                Precision Packages Built For Real Results
+                Signature Detailing Services
               </h2>
               <p className="text-zinc-300">
-                Every service is designed to restore depth, remove buildup, and leave your
-                vehicle with a clean, protected, premium finish.
+                Each service is structured for measurable transformation, not quick wipe-downs.
               </p>
             </Reveal>
 
@@ -318,12 +474,44 @@ export default function Home() {
           </div>
         </section>
 
+        <section id="process" className="section-shell border-y border-white/5 bg-white/[0.015]">
+          <div className="mx-auto w-full max-w-6xl px-4 md:px-8">
+            <Reveal className="max-w-3xl space-y-4">
+              <Badge>How It Works</Badge>
+              <h2 className="font-display text-4xl tracking-[0.04em] md:text-5xl">
+                A Clean Process From Arrival To Final Walkaround
+              </h2>
+            </Reveal>
+
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
+              {processSteps.map((step, index) => {
+                const Icon = step.icon;
+
+                return (
+                  <Reveal key={step.title} delay={index * 0.08}>
+                    <Card className="h-full border-white/10 bg-white/[0.03] p-6">
+                      <div className="mb-4 flex items-center justify-between">
+                        <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/20 bg-white/5 text-[var(--color-accent)]">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <p className="font-display text-3xl text-zinc-500">0{index + 1}</p>
+                      </div>
+                      <h3 className="text-xl font-semibold text-white">{step.title}</h3>
+                      <p className="mt-2 text-zinc-300">{step.detail}</p>
+                    </Card>
+                  </Reveal>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
         <section id="showcase" className="section-shell border-y border-white/5 bg-white/[0.015]">
           <div className="mx-auto w-full max-w-6xl px-4 md:px-8">
             <Reveal className="max-w-3xl space-y-4">
               <Badge>Before &amp; After</Badge>
               <h2 className="font-display text-4xl tracking-[0.04em] md:text-5xl">
-                Transformation You Can Feel At First Glance
+                Transformation You Can See Instantly
               </h2>
               <p className="text-zinc-300">
                 Slide to compare real detailing outcomes, then open the gallery for a full
@@ -436,6 +624,11 @@ export default function Home() {
                     across the Detroit Metro area with flexible scheduling.
                   </p>
 
+                  <div className="mt-4 flex items-center gap-2 text-zinc-300">
+                    <Clock3 className="h-4 w-4 text-[var(--color-accent)]" />
+                    <p>Booking windows available 7 days per week.</p>
+                  </div>
+
                   <div className="mt-5 flex flex-wrap gap-2">
                     {cities.map((city) => (
                       <span
@@ -457,7 +650,7 @@ export default function Home() {
             <Reveal className="max-w-3xl space-y-4">
               <Badge>Testimonials</Badge>
               <h2 className="font-display text-4xl tracking-[0.04em] md:text-5xl">
-                Trusted By Drivers Who Expect Better
+                What Our Customers Are Saying
               </h2>
             </Reveal>
 
@@ -472,10 +665,10 @@ export default function Home() {
             <Reveal className="max-w-3xl space-y-4">
               <Badge>Instagram</Badge>
               <h2 className="font-display text-4xl tracking-[0.04em] md:text-5xl">
-                Daily Detail Drops, Washes, And Finishes
+                Follow Us On Social
               </h2>
               <p className="text-zinc-300">
-                Follow the latest transformations and behind-the-scenes process updates.
+                See daily wash sequences, correction work, ceramic applications, and final reveals.
               </p>
             </Reveal>
 
@@ -512,64 +705,79 @@ export default function Home() {
 
         <section id="contact" className="section-shell">
           <div className="mx-auto w-full max-w-6xl px-4 md:px-8">
-            <Reveal className="max-w-3xl space-y-4">
-              <Badge>Contact / Booking</Badge>
-              <h2 className="font-display text-4xl tracking-[0.04em] md:text-5xl">
-                Book Your Mobile Detail
-              </h2>
-              <p className="text-zinc-300">
-                Get a fast quote with your vehicle details and preferred service. We respond
-                quickly and confirm availability across Detroit Metro.
-              </p>
-            </Reveal>
+            <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+              <Reveal className="space-y-6">
+                <Badge>Join Our Mailing List</Badge>
+                <h2 className="font-display text-4xl tracking-[0.04em] md:text-5xl">
+                  Seasonal Deals, Promos, And Pro Detailing Tips
+                </h2>
+                <p className="text-zinc-300">
+                  Subscribe for exclusive offers and product care guidance straight to your inbox.
+                </p>
+                <form className="flex flex-col gap-3 sm:flex-row">
+                  <Input type="email" required placeholder="Your Email" className="sm:flex-1" />
+                  <button type="submit" className={cn(buttonVariants({ size: "lg" }), "sm:px-7")}>
+                    Sign Up
+                  </button>
+                </form>
 
-            <div className="mt-10 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
-              <Reveal className="space-y-4">
-                <a href="tel:+13135550199" className={cn(buttonVariants({ size: "lg" }), "w-full gap-2") }>
-                  <PhoneCall className="h-4 w-4" />
-                  Call (313) 555-0199
-                </a>
-                <a
-                  href="sms:+13135550199"
-                  className={cn(buttonVariants({ variant: "secondary", size: "lg" }), "w-full gap-2")}
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  Send A Text
-                </a>
-                <a
-                  href="mailto:glassbossdetailing@gmail.com"
-                  className={cn(buttonVariants({ variant: "secondary", size: "lg" }), "w-full gap-2")}
-                >
-                  <Mail className="h-4 w-4" />
-                  Email Us
-                </a>
-
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-5">
-                  <p className="text-sm uppercase tracking-[0.18em] text-zinc-400">Response Promise</p>
-                  <p className="mt-2 text-zinc-200">
-                    Most quote requests get a same-day response with transparent pricing and
-                    recommended package options.
-                  </p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Contact</p>
+                    <p className="mt-2 text-zinc-200">glassbossdetailing@gmail.com</p>
+                    <p className="text-zinc-200">(313) 555-0199</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                    <p className="text-xs uppercase tracking-[0.2em] text-zinc-400">Address</p>
+                    <p className="mt-2 text-zinc-200">Downriver, Michigan</p>
+                    <p className="text-zinc-200">Detroit Metro Coverage</p>
+                  </div>
                 </div>
               </Reveal>
 
               <Reveal delay={0.1}>
                 <div className="rounded-3xl border border-white/10 bg-black/40 p-6 md:p-8">
+                  <div className="mb-5">
+                    <Badge>Contact / Booking</Badge>
+                    <h3 className="mt-3 font-display text-3xl text-white">Book Your Mobile Detail</h3>
+                    <p className="mt-2 text-zinc-300">
+                      Tell us what you drive and what result you want. We will respond quickly.
+                    </p>
+                  </div>
+
+                  <div className="mb-5 grid gap-3 sm:grid-cols-3">
+                    <a href="tel:+13135550199" className={cn(buttonVariants({ size: "default" }), "w-full gap-2") }>
+                      <PhoneCall className="h-4 w-4" />
+                      Call
+                    </a>
+                    <a
+                      href="sms:+13135550199"
+                      className={cn(buttonVariants({ variant: "secondary", size: "default" }), "w-full gap-2")}
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      SMS
+                    </a>
+                    <a
+                      href="mailto:glassbossdetailing@gmail.com"
+                      className={cn(buttonVariants({ variant: "secondary", size: "default" }), "w-full gap-2")}
+                    >
+                      <Mail className="h-4 w-4" />
+                      Email
+                    </a>
+                  </div>
+
                   <form
-                    name="booking"
                     method="POST"
-                    data-netlify="true"
-                    netlify-honeypot="bot-field"
-                    action="/thank-you"
+                    action="https://formsubmit.co/glassbossdetailing@gmail.com"
                     className="space-y-4"
                   >
-                    <input type="hidden" name="form-name" value="booking" />
-                    <p className="hidden">
-                      <label>
-                        Do not fill this out if you are human:
-                        <input name="bot-field" />
-                      </label>
-                    </p>
+                    <input type="hidden" name="_subject" value="New booking request - Glass Boss Detailing" />
+                    <input
+                      type="hidden"
+                      name="_next"
+                      value="https://romiaujla.github.io/glass-boss-detailing/thank-you/"
+                    />
+                    <input type="hidden" name="_captcha" value="false" />
 
                     <div className="grid gap-4 sm:grid-cols-2">
                       <Input name="name" required placeholder="Name" autoComplete="name" />
