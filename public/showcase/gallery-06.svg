@@ -1,0 +1,14 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Detailing finish showcase">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#041119"/>
+      <stop offset="100%" stop-color="#112e44"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <path d="M210 610C290 500 420 450 560 430H710C860 450 960 510 1000 610Z" fill="#1b4a67"/>
+  <rect x="350" y="470" width="520" height="126" rx="63" fill="#255d80"/>
+  <rect x="430" y="500" width="360" height="42" rx="21" fill="#d2fbff" opacity="0.48"/>
+  <ellipse cx="600" cy="640" rx="420" ry="46" fill="#00131f" opacity="0.5"/>
+  <text x="70" y="120" fill="#a4f7ff" font-size="52" font-family="Arial" font-weight="700">SHOWROOM FINISH</text>
+</svg>

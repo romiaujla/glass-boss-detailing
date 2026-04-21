@@ -1,0 +1,15 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Interior detailing showcase">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#090909"/>
+      <stop offset="100%" stop-color="#1b1b1b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect x="220" y="220" width="760" height="460" rx="46" fill="#232323"/>
+  <rect x="280" y="300" width="220" height="260" rx="28" fill="#2f2f2f"/>
+  <rect x="540" y="300" width="220" height="260" rx="28" fill="#2f2f2f"/>
+  <rect x="460" y="330" width="80" height="230" rx="16" fill="#0b0b0b"/>
+  <rect x="320" y="260" width="560" height="26" rx="13" fill="#6dff9f" opacity="0.65"/>
+  <text x="70" y="120" fill="#6dff9f" font-size="52" font-family="Arial" font-weight="700">INTERIOR DEEP CLEAN</text>
+</svg>

@@ -1,0 +1,32 @@
+<svg width="1400" height="900" viewBox="0 0 1400 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Before detailing car condition">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0b0b0b"/>
+    </linearGradient>
+    <linearGradient id="car" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#3c3c3c"/>
+      <stop offset="100%" stop-color="#1f1f1f"/>
+    </linearGradient>
+    <filter id="blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="900" fill="url(#bg)"/>
+  <circle cx="1120" cy="170" r="180" fill="#2e2e2e" opacity="0.25" filter="url(#blur)"/>
+  <ellipse cx="700" cy="760" rx="420" ry="70" fill="#000" opacity="0.5"/>
+  <path d="M290 590C330 470 420 420 560 400H820C955 420 1040 470 1110 590Z" fill="url(#car)"/>
+  <rect x="420" y="435" width="560" height="130" rx="65" fill="#2a2a2a"/>
+  <rect x="500" y="455" width="400" height="75" rx="38" fill="#3a3a3a" opacity="0.5"/>
+  <circle cx="450" cy="620" r="70" fill="#1c1c1c"/>
+  <circle cx="950" cy="620" r="70" fill="#1c1c1c"/>
+  <g opacity="0.22">
+    <circle cx="430" cy="520" r="9" fill="#7f7f7f"/>
+    <circle cx="520" cy="540" r="7" fill="#7f7f7f"/>
+    <circle cx="640" cy="515" r="8" fill="#7f7f7f"/>
+    <circle cx="760" cy="548" r="6" fill="#7f7f7f"/>
+    <circle cx="870" cy="520" r="7" fill="#7f7f7f"/>
+    <circle cx="960" cy="540" r="8" fill="#7f7f7f"/>
+  </g>
+  <text x="80" y="120" fill="#8f8f8f" font-size="60" font-family="Arial" font-weight="700">BEFORE</text>
+</svg>
